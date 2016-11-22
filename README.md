@@ -1,5 +1,5 @@
 # styleguide
 
-* css规范
-* js 规范
-* component 规范
+* [JS 编码规范](./js.md)
+* [CSS 编码规范](./css.md)
+* [Component 编码规范](./component.md)
