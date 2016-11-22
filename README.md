@@ -1,4 +1,4 @@
-# fe guide
+# FE Guide
 
 ## style Guide
 
