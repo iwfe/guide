@@ -1,4 +1,4 @@
-## react 代码设计规范
+## react 业务及组件代码设计规范
 
 
 ## 基本编写框架【basic structure】
@@ -50,3 +50,29 @@
     render(<SomeComponent />,'DOM Container')
 
 ```
+
+
+## state 和 props组件设计界定
+
+#### 界定原则
+
+1. state和props数据信息保持最小的重复性
+
+> state和props不要有信息重复，它们应该是完成组件渲染的必要数据。
+
+> 组件及业务编写和react的top-level单向数据流保持一致，保持组件内部的数据来源明确而单一，增加程序健壮性
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
