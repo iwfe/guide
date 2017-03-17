@@ -47,5 +47,6 @@
                    </div>
         }
     }
+    render(<SomeComponent />,'DOM Container')
 
 ```
