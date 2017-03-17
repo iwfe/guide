@@ -29,12 +29,13 @@
         }
         /*
          * 上升到被多个业务模块使用的组件
-         * 必须实现这个方法，以便增加动态性
+         * 尽量实现这个方法，以便其他开发者能够增加动态性
          */
         renderPlugins(){
             let { Plugins } = this.props;
-            if(typeof Plugins=='function'){
-                return <Plugins />
+            let dataModel = {...this.props,...this.state};
+            if(typeof Plugins=='function'){;
+                return <Plugins  dataModel={dataModel}/>
             }else{
                 return Plugin;
             }
