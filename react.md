@@ -80,9 +80,6 @@
 
 ```
 
-
-## 组件设计基本对外API
-
 #### 插件体系
 
 1. 上升为组件的React代码必须根据业务模型提供 **开发者API**
@@ -91,9 +88,7 @@
 
 > 定义插件props为Plugins
 
-## state 和 props组件设计界定
-
-### 界定原则
+## 业务代码规范
 
 1. state和props数据信息保持最小的重复性
 
@@ -105,24 +100,61 @@
 
 > 将render里面的动态逻辑抽象为function
 
-3. do expression
+3. do expression来处理简单的条件分支逻辑
 
 > 三目运算符尽量采用do expression
 
 ```javascript
     do{
         if(condition1){
-            result1
-        }else if{
-            result2
+            <Component1 />
+        }else if(condition2){
+            <Component2 />
         }else{
-            result3
+            <Component3 />
         }
     }
 ```
 
+4. 功能单一及DRY原则
 
-##
+> 代码编写不要出现重复代码
+
+> 组件功能应该保持垂直单一
+
+## 高阶组件规范
+
+> decorator的功能范围限制在如下两块
+
+1. hook事件 增加程序动态性
+
+2. 修改dataModel ，具体可以参考react-redux的connect实现
+
+```javascript
+    //hook事件 增加程序动态性
+    let HighOrderFunc=methodHook=>InnerComponent=>{
+        for(let key in methodHook){
+            let hookFn = methodHook(key)
+            InnerComponent.prototype[key]=()=>{
+                InnerComponent.prototype[key]();
+                hookFn()
+            }
+        }
+    }
+    @HighOrderFunc({
+        'clickFunc':()=>console.log('clicked')
+    })
+    class Component extends Componet{
+        clickFunc(){
+            this.setState({
+                'clicked':true
+            })
+        }
+        render(){
+            return <div onClick={::this.clickFunc}/>
+        }
+    }
+```
 
 
 
