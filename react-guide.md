@@ -354,9 +354,9 @@
 
 ## Methods 函数
 
-  - 使用箭头函数来获取本地变量.
+- 使用箭头函数来获取本地变量.
+```javaScript
 
-    ```jsx
     function ItemList(props) {
       return (
         <ul>
@@ -391,19 +391,6 @@
     }
     ```
 
-  - 在 `render` 方法中总是确保 `return` 返回值.
-    ```jsx
-    // bad
-    render() {
-      (<div />);
-    }
-
-    // good
-    render() {
-      return (<div />);
-    }
-    ```
-
 ## Ordering React 模块生命周期
 
   - `class extends React.Component` 的生命周期函数:
@@ -421,4 +408,31 @@
   1. *`render` 里的 getter 方法* 如 `getSelectReason()` 或 `getFooterContent()`
   1. *可选的 render 方法* 如 `renderNavigation()` 或 `renderProfilePicture()`
   1. `render` render() 方法
+
+## 语法规范及原则
+
+- state和props数据信息保持最小的重复性
+- state和props不要有信息重复。
+- 组件的数据来源必须明确而单一，见第一条
+- do expression来处理简单的条件分支逻辑
+ 
+ ```jsx
+    do{
+        if(condition1){
+            <Component1 />
+        }else if(condition2){
+            <Component2 />
+        }else{
+            <Component3 />
+        }
+    }
+    ```
+
+
+## 编程范式
+
+- 将render里面的动态逻辑抽象为function
+- 功能单一及DRY原则
+- 代码编写不要出现重复代码
+- 组件功能应该保持垂直单一
 
