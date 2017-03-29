@@ -126,34 +126,36 @@
 
 > decorator的功能范围限制在如下两块
 
-1. hook事件 增加程序动态性
+1. hook事件,增加程序动态性
 
 2. 修改dataModel ，具体可以参考react-redux的connect实现
 
 ```javascript
     //hook事件 增加程序动态性
-    let HighOrderFunc=methodHook=>InnerComponent=>{
-        for(let key in methodHook){
-            let hookFn = methodHook(key)
-            InnerComponent.prototype[key]=()=>{
-                InnerComponent.prototype[key]();
+    const highOrderFunc=methodHook=>InnerComponent=>{
+        _.forIn(methodHook, (hookFn, key)=>{
+            let cache = InnerComponent.prototype[key]
+            InnerComponent.prototype[key]=function(...args){
+                cache.apply(this,args)
                 hookFn()
             }
-        }
+        });
+        return InnerComponent
     }
-    @HighOrderFunc({
-        'clickFunc':()=>console.log('clicked')
-    })
-    class Component extends Componet{
+    @highOrderFunc({'clickFunc':()=>console.log('hook click called')})
+    class FirstComponent extends Component{
+        constructor(){
+            super();
+            this.state={ text: 'hello world' }
+        }
         clickFunc(){
-            this.setState({
-                'clicked':true
-            })
+            this.setState({text:'I am clicked'})
         }
         render(){
-            return <div onClick={::this.clickFunc}/>
+            return <div onClick={::this.clickFunc}>{this.state.text}</div>
         }
-    }
+     };
+     render(<FirstComponent />,document.getElementById('root'))
 ```
 
 
