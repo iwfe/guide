@@ -300,14 +300,10 @@
 
     ```jsx
     // bad
-    <Foo
-      ref="myRef"
-    />
+    <Foo  ref="myRef"/>
 
     // good
-    <Foo
-      ref={(ref) => { this.myRef = ref; }}
-    />
+    <Foo ref={(ref) => { this.myRef = ref; }}/>
     ```
 
 
