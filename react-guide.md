@@ -4,7 +4,7 @@
 
   1. [基本规范](#basic-rules-基本规范)
   2. [ES6写法React class](#创建模块)
-  3. [Do Not Use mixins](#不要使用mixins和contextTypes)
+  3. [Do Not Use mixins](#不要使用mixins和contexttypes)
   4. [命名](#naming-命名)
   5. [声明模块](#declaration-声明模块)
   6. [代码对齐](#alignment-代码对齐)
@@ -390,7 +390,7 @@
       }
       // other stuff
     }
-    ```
+```
 
 ## Ordering React 模块生命周期
 
@@ -427,7 +427,7 @@
             <Component3 />
         }
     }
-    ```
+```
 
 
 ## principles 组件设计原则
