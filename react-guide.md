@@ -410,11 +410,16 @@
   1. *可选的 render 方法* 如 `renderNavigation()` 或 `renderProfilePicture()`
   1. `render` render() 方法
 
-## syntax 语法规范及原则
+## syntax 语法建议及原则
 
-- state和props数据信息保持最小的重复性
-- state和props不要有信息重复。
-- 组件的数据来源必须明确而单一，见第一条
+- @,decorator语法来组装高阶组件
+ 
+ ```jsx
+    @connect()
+    class Test extends Component{
+    }
+```
+
 - do expression来处理简单的条件分支逻辑
  
  ```jsx
@@ -431,8 +436,8 @@
 
 
 ## principles 组件设计原则
-
+- state和props数据信息保持最小的重复性
+- state和props不要有信息重复。
 - 功能单一及DRY原则
 - 代码编写不要出现重复代码
-- 组件功能应该保持垂直单一
 
