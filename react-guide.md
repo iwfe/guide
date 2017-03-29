@@ -1,4 +1,4 @@
-# Airbnb React/JSX 编码规范
+#  React/JSX 编码规范
 
 ## 内容目录
 
@@ -25,9 +25,8 @@
   - 不要使用 `React.createElement`.
 
 ## 创建模块
-   Class vs React.createClass vs stateless
 
-   ```jsx
+```jsx
     // bad
     const Listing = React.createClass({
       // ...
@@ -43,11 +42,9 @@
         return <div>{this.state.hello}</div>;
       }
     }
-    ```
+```
 
-    如果你的模块没有状态或是没有引用`refs`， 推荐使用普通函数（非箭头函数）而不是类:
-
-    ```jsx
+```jsx
     // bad
     class Listing extends React.Component {
       render() {
@@ -64,13 +61,12 @@
     function Listing({ hello }) {
       return <div>{hello}</div>;
     }
-    ```
+```
 
-## Mixins
+## 不要使用
 
-  - [不要使用 mixins](https://facebook.github.io/react/blog/2016/07/13/mixins-considered-harmful.html).
-
-  > 为什么? Mixins 会增加隐式的依赖，导致命名冲突，并且会以雪球式增加复杂度。在大多数情况下Mixins可以被更好的方法替代，如：组件化，高阶组件，工具模块等。
+  - 不要使用 mixins
+  - 不要使用 contextTypes
 
 ## Naming 命名
 
@@ -101,11 +97,9 @@
     import Footer from './Footer/index';
 
     // good
-    import Footer from './Footer';
+    import Footer from './Footer/';
     ```
   - **高阶模块命名**: 对于生成一个新的模块，其中的模块名 `displayName` 应该为高阶模块名和传入模块名的组合. 例如, 高阶模块 `withFoo()`, 当传入一个 `Bar` 模块的时候， 生成的模块名 `displayName` 应该为 `withFoo(Bar)`.
-
-  > 为什么？一个模块的 `displayName` 可能会在开发者工具或者错误信息中使用到，因此有一个能清楚的表达这层关系的值能帮助我们更好的理解模块发生了什么，更好的Debug.
 
     ```jsx
     // bad
@@ -130,9 +124,7 @@
     }
     ```
 
-  - **属性命名**: 避免使用DOM相关的属性来用作其他的用途。？
-
-  > 为什么？对于`style` 和 `className`这样的属性名，我们都会默认它们代表一些特殊的含义，如元素的样式，CSS class的名称。在你的应用中使用这些属性来表示其他的含义会使你的代码更难阅读，更难维护，并且可能会引起bug。
+  - **属性命名**: 避免使用DOM相关的属性来用作其他的用途。
 
     ```jsx
     // bad
@@ -160,14 +152,14 @@
 
 ## Alignment 代码对齐
 
-  - 遵循以下的JSX语法缩进/格式. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
+  - 遵循以下的JSX语法缩进/格式. 
 
     ```jsx
-    // bad
+    // good, 有多行属性的话
     <Foo superLongParam="bar"
          anotherSuperLongParam="baz" />
 
-    // good, 有多行属性的话, 新建一行关闭标签
+    // bad 
     <Foo
       superLongParam="bar"
       anotherSuperLongParam="baz"
@@ -176,13 +168,6 @@
     // 若能在一行中显示, 直接写成一行
     <Foo bar="bar" />
 
-    // 子元素按照常规方式缩进
-    <Foo
-      superLongParam="bar"
-      anotherSuperLongParam="baz"
-    >
-      <Quux />
-    </Foo>
     ```
 
 ## Quotes 单引号还是双引号
@@ -209,8 +194,6 @@
   - 总是在自动关闭的标签前加一个空格，正常情况下也不需要换行.
 
     ```jsx
-    // bad
-    <Foo/>
 
     // very bad
     <Foo                 />
@@ -245,62 +228,18 @@
     />
 
     // good
-    <Foo
-      userName="hello"
-      phoneNumber={12345678}
-    />
+    <Foo userName="hello"
+         phoneNumber={12345678}/>
     ```
 
   - 如果属性值为 `true`, 可以直接省略.
 
     ```jsx
     // bad
-    <Foo
-      hidden={true}
-    />
+    <Foo hidden={true} />
 
     // good
-    <Foo
-      hidden
-    />
-    ```
-
-  - `<img>` 标签总是添加 `alt` 属性. 如果图片以presentation(感觉是以类似PPT方式显示?)方式显示，`alt` 可为空, 或者`<img>` 要包含`role="presentation"`.
-    ```jsx
-    // bad
-    <img src="hello.jpg" />
-
-    // good
-    <img src="hello.jpg" alt="Me waving hello" />
-
-    // good
-    <img src="hello.jpg" alt="" />
-
-    // good
-    <img src="hello.jpg" role="presentation" />
-    ```
-
-
-  > 为什么? 屏幕助读器已经把 `img` 标签标注为图片了, 所以没有必要再在 `alt` 里说明了.
-
-    ```jsx
-    // bad
-    <img src="hello.jpg" alt="Picture of me waving hello" />
-
-    // good
-    <img src="hello.jpg" alt="Me waving hello" />
-    ```
-
-  - 使用有效正确的 aria `role`属性值 [ARIA roles](https://www.w3.org/TR/wai-aria/roles#role_definitions).
-    ```jsx
-    // bad - not an ARIA role
-    <div role="datepicker" />
-
-    // bad - abstract ARIA role
-    <div role="range" />
-
-    // good
-    <div role="button" />
+    <Foo hidden />
     ```
 
   - 避免使用数组的index来作为属性`key`的值，推荐使用唯一ID.
@@ -308,49 +247,50 @@
   ```jsx
   // bad
   {todos.map((todo, index) =>
-    <Todo
-      {...todo}
-      key={index}
-    />
+    <Todo {...todo}
+         key={index} />
   )}
 
   // good
   {todos.map(todo => (
-    <Todo
-      {...todo}
-      key={todo.id}
-    />
+    <Todo {...todo}
+          key={todo.id}/>
   ))}
   ```
 
   - 对于所有非必须的属性，总是手动去定义`defaultProps`属性.
 
-  > 为什么? propTypes 可以作为模块的文档说明, 并且声明 defaultProps 的话意味着阅读代码的人不需要去假设一些默认值。更重要的是, 显示的声明默认属性可以让你的模块跳过属性类型的检查.
+  >  propTypes 可以作为模块的文档说明, 并且声明 defaultProps 的话意味着阅读代码的人不需要去假设一些默认值。更重要的是, 显示的声明默认属性可以让你的模块跳过属性类型的检查.
 
   ```jsx
-  // bad
-  function SFC({ foo, bar, children }) {
-    return <div>{foo}{bar}{children}</div>;
-  }
-  SFC.propTypes = {
-    foo: PropTypes.number.isRequired,
-    bar: PropTypes.string,
-    children: PropTypes.node,
-  };
-
   // good
-  function SFC({ foo, bar }) {
-    return <div>{foo}{bar}</div>;
-  }
-  SFC.propTypes = {
-    foo: PropTypes.number.isRequired,
-    bar: PropTypes.string,
-    children: PropTypes.node,
-  };
-  SFC.defaultProps = {
-    bar: '',
-    children: null,
-  };
+  import { Component,PropTypes },React from 'react';
+    import {render} from 'react-dom';
+    class BusinessLogic extends Component{
+        /*
+         * 对每个prop含义必须进行注释
+         * 说明每个prop的类型
+         */
+        static propTypes={
+            velocity:PropTypes.number,//滚动速度
+            imageArray: PropTypes.array// 图片源
+         }
+        /*
+         * props默认参数
+         */
+        static defaultProps={
+            velocity:500,//滚动速度
+            imageArray:[],//图片源
+        }
+        //不要使用context
+        constructor(props,context){
+            super();
+            this.state = {}
+        }
+        render(){
+            return <你的逻辑>
+        }
+    }
   ```
 
 ## Refs
@@ -403,26 +343,13 @@
   - 对于没有子元素的标签来说总是自己关闭标签.
 
     ```jsx
+    
     // bad
     <Foo className="stuff"></Foo>
 
     // good
     <Foo className="stuff" />
-    ```
-
-  - 如果模块有多行的属性， 关闭标签时新建一行.
-
-    ```jsx
-    // bad
-    <Foo
-      bar="bar"
-      baz="baz" />
-
-    // good
-    <Foo
-      bar="bar"
-      baz="baz"
-    />
+    
     ```
 
 ## Methods 函数
@@ -444,41 +371,7 @@
     }
     ```
 
-  - 当在 `render()` 里使用事件处理方法时，提前在构造函数里把 `this` 绑定上去.
-  > 为什么? 在每次 `render` 过程中， 再调用 `bind` 都会新建一个新的函数，浪费资源.
-
-    ```jsx
-    // bad
-    class extends React.Component {
-      onClickDiv() {
-        // do stuff
-      }
-
-      render() {
-        return <div onClick={this.onClickDiv.bind(this)} />
-      }
-    }
-
-    // good
-    class extends React.Component {
-      constructor(props) {
-        super(props);
-
-        this.onClickDiv = this.onClickDiv.bind(this);
-      }
-
-      onClickDiv() {
-        // do stuff
-      }
-
-      render() {
-        return <div onClick={this.onClickDiv} />
-      }
-    }
-    ```
-
   - 在React模块中，不要给所谓的私有函数添加 `_` 前缀，本质上它并不是私有的.
-
 
     ```jsx
     // bad
@@ -486,7 +379,6 @@
       _onClickSubmit() {
         // do stuff
       },
-
       // other stuff
     });
 
@@ -495,7 +387,6 @@
       onClickSubmit() {
         // do stuff
       }
-
       // other stuff
     }
     ```
@@ -519,7 +410,6 @@
 
   1. 可选的 `static` 方法
   1. `constructor` 构造函数
-  1. `getChildContext` 获取子元素内容
   1. `componentWillMount` 模块渲染前
   1. `componentDidMount` 模块渲染后
   1. `componentWillReceiveProps` 模块将接受新的数据
@@ -531,59 +421,4 @@
   1. *`render` 里的 getter 方法* 如 `getSelectReason()` 或 `getFooterContent()`
   1. *可选的 render 方法* 如 `renderNavigation()` 或 `renderProfilePicture()`
   1. `render` render() 方法
-
-  - 如何定义 `propTypes`, `defaultProps`, `contextTypes`, 等等其他属性...
-
-    ```jsx
-    import React, { PropTypes } from 'react';
-
-    const propTypes = {
-      id: PropTypes.number.isRequired,
-      url: PropTypes.string.isRequired,
-      text: PropTypes.string,
-    };
-
-    const defaultProps = {
-      text: 'Hello World',
-    };
-
-    class Link extends React.Component {
-      static methodsAreOk() {
-        return true;
-      }
-
-      render() {
-        return <a href={this.props.url} data-id={this.props.id}>{this.props.text}</a>
-      }
-    }
-
-    Link.propTypes = propTypes;
-    Link.defaultProps = defaultProps;
-
-    export default Link;
-    ```
-
-  - `React.createClass` 的生命周期函数，与使用class稍有不同
-
-  1. `displayName` 设定模块名称
-  1. `propTypes` 设置属性的类型
-  1. `contextTypes` 设置上下文类型
-  1. `childContextTypes` 设置子元素上下文类型
-  1. `mixins` 添加一些mixins
-  1. `statics`
-  1. `defaultProps` 设置默认的属性值
-  1. `getDefaultProps` 获取默认属性值
-  1. `getInitialState` 或者初始状态
-  1. `getChildContext`
-  1. `componentWillMount`
-  1. `componentDidMount`
-  1. `componentWillReceiveProps`
-  1. `shouldComponentUpdate`
-  1. `componentWillUpdate`
-  1. `componentDidUpdate`
-  1. `componentWillUnmount`
-  1. *clickHandlers or eventHandlers* like `onClickSubmit()` or `onChangeDescription()`
-  1. *getter methods for `render`* like `getSelectReason()` or `getFooterContent()`
-  1. *Optional render methods* like `renderNavigation()` or `renderProfilePicture()`
-  1. `render`
 
