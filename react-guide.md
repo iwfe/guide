@@ -352,6 +352,7 @@
 ## Methods 函数
 
 - 使用箭头函数来获取本地变量.
+- 
 ```javaScript
 
     function ItemList(props) {
@@ -370,7 +371,7 @@
 
 - 在React模块中不要给私有函数添加 `_` 前缀
 
-    ```jsx
+```jsx
     // bad
     React.createClass({
       _onClickSubmit() {
