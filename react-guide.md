@@ -3,8 +3,8 @@
 ## 内容目录
 
   1. [基本规范](#basic-rules-基本规范)
-  2. [Class vs React.createClass vs stateless](#创建模块)
-  3. [不要使用mixin和contextTypes](#不要使用mixins和contextTypes)
+  2. [ES6写法React class](#创建模块)
+  3. [Do Not Use mixins](#不要使用mixins和contextTypes)
   4. [命名](#naming-命名)
   5. [声明模块](#declaration-声明模块)
   6. [代码对齐](#alignment-代码对齐)
@@ -16,8 +16,8 @@
   12. [标签](#tags-标签)
   13. [函数/方法](#methods-函数)
   14. [模块生命周期](#ordering-react-模块生命周期)
-  15. [语法规范及原则](#语法规范及原则) 
-  16. [组件设计原则](#组件设计原则) 
+  15. [语法规范及原则](#syntax-语法规范及原则) 
+  16. [组件设计原则](#principles-组件设计原则) 
 
 ## Basic Rules 基本规范
 
@@ -410,7 +410,7 @@
   1. *可选的 render 方法* 如 `renderNavigation()` 或 `renderProfilePicture()`
   1. `render` render() 方法
 
-## 语法规范及原则
+## syntax 语法规范及原则
 
 - state和props数据信息保持最小的重复性
 - state和props不要有信息重复。
@@ -430,7 +430,7 @@
     ```
 
 
-## 组件设计原则
+## principles 组件设计原则
 
 - 功能单一及DRY原则
 - 代码编写不要出现重复代码
